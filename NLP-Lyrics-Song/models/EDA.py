@@ -6,7 +6,7 @@ import seaborn as sns
 sns.set(context='talk', style='ticks')
 %matplotlib inline
 
-with open('../lyrics/kendrick lamar.txt', 'r', encoding='ascii', errors='ignore') as file:
+with open('../lyrics/drake.txt', 'r', encoding='ascii', errors='ignore') as file:
     lines = file.readlines()
 
 titles = []
@@ -21,6 +21,10 @@ for line in lines:
         lyrics[-1] += ' ' + line.strip()
 
 df = pd.DataFrame({'title': titles, 'lyrics': lyrics})
+df['title'] = df['title'].apply(lambda x: x.replace('Drake', ''))
+# save dataframe to csv
+df.to_csv('../lyrics/drake.csv', index=False)
+
 df['lyrics'][0]
 df['#characters'] = df.lyrics.str.len()
 df['#words'] = df.lyrics.str.split().str.len()
